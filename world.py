@@ -1,4 +1,5 @@
 import numpy as np
+from math import *
 from robot import *
 
 class Graph():
@@ -11,6 +12,22 @@ def print_robots_distances(graph,list):
     for i in range(graph.vertices):
         print(i,'\t\t',list[i])
 
+def initialize_graph(L):
+    graph = Graph(len(L))
+    for robot in L:
+        for other_robot in L:
+            graph.graph[robot.id][other_robot.id] = sqrt((robot.x - other_robot.x)**2 + (robot.y - other_robot.y)**2)
+    return graph
+
+robot1 = Robot(0,1,1)
+robot2 = Robot(1,1,2)
+robot3 = Robot(2,2,1)
+robot4 = Robot(3,2,2)
+
+List_of_robots=[robot1, robot2, robot3, robot4]
+
+g = initialize_graph(List_of_robots)
+print(g.graph)
 
 def dijkstra(graph, V0):
     inf = 1e7
